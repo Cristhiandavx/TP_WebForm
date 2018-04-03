@@ -37,7 +37,76 @@ utilizo la configuración de proyectos anteriores
     </head>
     <body>
         <div id="main" class="container">
-            
+            <div class="jumbotron text-center text-light" style="background-color: darkslategrey">
+                <h1>Formulario</h1>
+            </div>
+            <form>
+                <!-- Input -->
+                <div class="form-group">
+                    <label for="FormControlInput1">Nombre</label>
+                    <input type="email" class="form-control" id="FormControlInput1" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="FormControlInput2">Apellido</label>
+                    <input type="email" class="form-control" id="FormControlInput2" placeholder="Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="FormControlInput3">Teléfono</label>
+                    <input type="email" class="form-control" id="FormControlInput3">
+                </div>
+                <div class="form-group">
+                    <label for="FormControlInput4">Email</label>
+                    <input type="email" class="form-control" id="FormControlInput4" placeholder="nombre@ejemplo.com">
+                </div>
+                <!-- Select -->
+                <div class="form-group">
+                    <label for="FormControlSelect1">Selección simple</label>
+                    <select class="form-control" id="formControlSelect1">
+                        <option>Opción 1</option>
+                        <option>Opción 2</option>
+                        <option>Opción 3</option>
+                        <option>Opción 4</option>
+                        <option>Opción 5</option>
+                    </select>
+                </div>
+                <!-- Select multiple -->
+                <div class="form-group">
+                    <label for="FormControlSelect2">Selección multiple</label>
+                    <select multiple class="form-control" id="FormControlSelect2">
+                        <option>Opción 1</option>
+                        <option>Opción 2</option>
+                        <option>Opción 3</option>
+                        <option>Opción 4</option>
+                        <option>Opción 5</option>
+                    </select>
+                </div>
+                <!-- Text area -->
+                <div class="form-group">
+                    <label for="FormControlTextarea1">Textarea</label>
+                    <textarea class="form-control" id="FormControlTextarea1" rows="3"></textarea>
+                </div>
+                <!-- File input -->
+                <div class="form-group">
+                    <label for="FormControlFile1">Input file</label>
+                    <input type="file" class="form-control-file" id="FormControlFile1">
+                </div>
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="FormCheck1">
+                    <label class="form-check-label" for="FormCheck1">
+                        Checkbox
+                    </label>
+                </div>
+                <!-- Radio -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="RadioOption" value="" id="FormRadio1">
+                    <label class="form-check-label" for="FormRadio1">Selector Radio</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="RadioOption" value="" id="FormRadio2">
+                    <label class="form-check-label" for="FormRadio2">Selector Radio</label>
+                </div>
+            </form>
         </div>
     </body>
 </html>
