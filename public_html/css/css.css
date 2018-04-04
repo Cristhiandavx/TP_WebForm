@@ -2,4 +2,14 @@
     Created on : 02/04/2018, 12:11:14 PM
     Author     : oym-dev07
 */
-
+*{
+    box-sizing: border-box;
+}
+label, label.col-form-label{
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+input[class*="form-"], select[class*="form-"]{
+    font-size: 10px;
+}
