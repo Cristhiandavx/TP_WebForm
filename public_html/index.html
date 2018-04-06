@@ -34,7 +34,7 @@ utilizo la configuración de proyectos anteriores
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <!-- Mis scripts en JavaScript -->
         <script src="js/js.js" type="text/javascript"></script>
-        <script src="js/indexedDB_1.js" type="text/javascript"></script>
+        <script src="js/indexedDB.js" type="text/javascript"></script>
     </head>
     <body onload="startDB()">
         <div id="form1" class="container">
@@ -45,20 +45,20 @@ utilizo la configuración de proyectos anteriores
             <!--<p class="lead">Formulario en forma de grilla</p>-->
             <!--================================================Formulario con formato Form Grid==========================================-->
             <h2>Información General</h2>
-            <form>
+            <form class="needs-validation">
                 <h4>Datos de contacto</h4>
                 <div class="form-row"><!-- Form Row para hacer que se ve en forma de listas en linea -->
                     <div class="col-6 col-sm"><!-- col para mantener el elemento en el centro y responsivo -->
                         <label for="FormControlNombre">Nombre</label><!-- Para los id (y los labels a quienes apunta) uso el tipo de elemento (FormControl, FormCheck, etc.) seguido del nombre para el mismo -->
-                        <input type="text" class="form-control form-control-sm" id="FormControlNombre" placeholder="Nombre">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlNombre" placeholder="Nombre">
                     </div>
                     <div class="col-6 col-sm">
                         <label for="FormControlApellido">Apellido</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlApellido" placeholder="Apellido">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlApellido" placeholder="Apellido">
                     </div>
                     <div class="col-auto">
                         <label for="FormControlNumerodecedula">Número de cedula</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
                     </div>
                     <div class="col-auto">
                         <label for="FormDateFechadenac">Fecha de nacimiento</label><!-- El tipo fecha (date) necesita un estilo mas amigable para la utilización en diferentes navegadores -->
@@ -238,25 +238,29 @@ utilizo la configuración de proyectos anteriores
                         </div>
                     </div>
                 </div>
+                <button type="submit">Guardar</button>
+                <!-- <button type="submit" onclick="validate_submit()">Guardar</button> -->
             </form>
-            <button type="button" onclick="addToIndexedDB();">Guardar</button>
+            <!-- <button type="button" onclick="addToIndexedDB();">Guardar</button> -->
+            <hr>
             <div id="elements">
                 <table>
-                    <caption>Persons</caption>
+                    <caption id="db_objectsName"> </caption>
                     <thead>
                         <tr>
-                            <th>DNI</th>
-                            <th>Name</th>
+                            <th>C.I. Nº:</th>
+                            <th>Nombre</th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody id="elementsList">
                         <tr>
-                            <td colspan="3">Not elements to show</td>
+                            <td colspan="3">No elements to show</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <button type="button" onclick="loadAll();">Cargar datos</button>
             <hr class="my-5">
             <div class="container card-footer text-center my-2">
                 TP - Formulario
