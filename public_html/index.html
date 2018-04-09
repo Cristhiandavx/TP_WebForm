@@ -23,6 +23,7 @@ utilizo la configuración de proyectos anteriores
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="img/copied-favicon.ico"/>
         <!-- Bootstrap 4 CDN -->
+        <!-- =========================================================================================== -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -32,9 +33,19 @@ utilizo la configuración de proyectos anteriores
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- Mi hoja de estilos -->
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
+        <!-- Otros estilos -->
+        <!-- =========================================================================================== -->
+        
+        <!-- =========================================================================================== -->
+        <!-- Otros scripts -->
+        <!-- =========================================================================================== -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- =========================================================================================== -->
         <!-- Mis scripts en JavaScript -->
+        <!-- =========================================================================================== -->
         <script src="js/js.js" type="text/javascript"></script>
         <script src="js/indexedDB.js" type="text/javascript"></script>
+        <!-- =========================================================================================== -->
     </head>
     <body onload="startDB()">
         <div id="form1" class="container">
@@ -45,7 +56,7 @@ utilizo la configuración de proyectos anteriores
             <!--<p class="lead">Formulario en forma de grilla</p>-->
             <!--================================================Formulario con formato Form Grid==========================================-->
             <h2>Información General</h2>
-            <form class="needs-validation">
+            <form id="generalInfo" class="needs-validation">
                 <h4>Datos de contacto</h4>
                 <div class="form-row"><!-- Form Row para hacer que se ve en forma de listas en linea -->
                     <div class="col-6 col-sm"><!-- col para mantener el elemento en el centro y responsivo -->
@@ -238,10 +249,10 @@ utilizo la configuración de proyectos anteriores
                         </div>
                     </div>
                 </div>
-                <button type="submit">Guardar</button>
-                <!-- <button type="submit" onclick="validate_submit()">Guardar</button> -->
+                <button id="btnGuardar" class="btn btn-info">Guardar</button>
             </form>
-            <!-- <button type="button" onclick="addToIndexedDB();">Guardar</button> -->
+            <!-- <button id="btnGuardar" type="button" onclick="addToIndexedDB()" class="btn">Guardar</button> -->
+            <!--  --><button id="btnModificar" type="button" class="btn d-none">Modificar</button>
             <hr>
             <div id="elements">
                 <table>
@@ -254,13 +265,14 @@ utilizo la configuración de proyectos anteriores
                         </tr>
                     </thead>
                     <tbody id="elementsList">
-                        <tr>
+                        <tr class="style">
                             <td colspan="3">No elements to show</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <button type="button" onclick="loadAll();">Cargar datos</button>
+            <button id="btn_loadAll" type="button" onclick="loadAll();" class="">Cargar datos</button>
+            <button id="btn_orderByName" type="button" onclick="loadAllByName();" class="d-none">Ordenar por nombre</button>
             <hr class="my-5">
             <div class="container card-footer text-center my-2">
                 TP - Formulario

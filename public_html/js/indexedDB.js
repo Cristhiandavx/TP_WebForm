@@ -24,6 +24,7 @@ function startDB() {
         var activeDB = dataBase.result;
 
         var registro = activeDB.createObjectStore("alumnos", {keyPath: 'id', autoIncrement: true}); //crea la colección (tabla) alumnos con una propiedad (columna) id que será la clave primaria y autoincrementado
+        registro.createIndex('by_id', 'id', {unique: true}); //crea un indice de la propiedad id
         registro.createIndex('by_ci', 'ci', {unique: true}); // crea un indice (by_cedula) de la propiedad cédula (cedula) que es único ({unique: true})
         registro.createIndex('by_nombre', 'nombre', {unique: false}); //crea un indice de la propiedad nombre
     };
@@ -123,14 +124,13 @@ function loadAll() {
         for (var key in elements) {
 
             outerHTML += '\n\
-                        <tr>\n\
+                        <tr onclick="loadInForm(' + elements[key].ci + ')">\n\
                             <td>' + elements[key].ci + '</td>\n\
                             <td>' + elements[key].nombre + '</td>\n\
                             <td>\n\
                                 <button type="button" onclick="load(' + elements[key].id + ')">Detalles por registro</button>\n\
                                 <button type="button" onclick="loadByDni(' + elements[key].ci + ')">Detalles por C.I.</button>\n\
-                                <button type="button" onclick="delByDni(' + elements[key].id + ')">Eliminar registro</button>\n\
-                                <button type="button" onclick="loadAllByName()">Ordenar por nombre</button>\n\
+                                <button type="button" onclick="delById(' + elements[key].id + ')">Eliminar registro</button>\n\
                             </td>\n\
                         </tr>';
 
@@ -140,6 +140,8 @@ function loadAll() {
         document.querySelector("#elementsList").innerHTML = outerHTML;
         console.log("Actual Object Store Name: " + active.name);
         document.querySelector("#db_objectsName").innerHTML = "Nombre de la tabla: " + active.name;
+        //document.querySelector("#btn_loadAll").hide();
+        document.querySelector("#btn_orderByName").classList.remove("d-none");
     };
 }
 
@@ -171,14 +173,13 @@ function loadAllByName() {
         for (var key in elements) {
 
             outerHTML += '\n\
-                        <tr>\n\
+                        <tr onclick="loadInForm(' + elements[key].ci + ')">\n\
                             <td>' + elements[key].ci + '</td>\n\
                             <td>' + elements[key].nombre + '</td>\n\
                             <td>\n\
                                 <button type="button" onclick="load(' + elements[key].id + ')">Detalles por registro</button>\n\
                                 <button type="button" onclick="loadByDni(' + elements[key].ci + ')">Detalles por C.I.</button>\n\
-                                <button type="button" onclick="delByDni(' + elements[key].id + ')">Eliminar registro</button>\n\
-                                <button type="button" onclick="loadAllByName()">Ordenar por nombre</button>\n\
+                                <button type="button" onclick="delById(' + elements[key].id + ')">Eliminar registro</button>\n\
                             </td>\n\
                         </tr>';
 
@@ -188,14 +189,45 @@ function loadAllByName() {
         document.querySelector("#elementsList").innerHTML = outerHTML;
     };
 }
-function delByDni(ci) {
+function loadInForm(ci) {
+    var active = dataBase.result;
+    var data = active.transaction(["alumnos"], "readonly");
+    var object = data.objectStore("alumnos");
+    var index = object.index("by_ci");
+    var request = index.get(String(ci));
+
+    request.onsuccess = function () {
+        var result = request.result;
+
+        if (result !== undefined) {
+            document.querySelector("#FormControlNumerodecedula").value = result.ci;
+            document.querySelector("#FormControlNombre").value = result.nombre;
+            document.querySelector("#FormControlApellido").value = result.apellido;
+        }
+        document.querySelector("#btnGuardar").classList.add("d-none");
+        document.querySelector("#btnModificar").classList.remove("d-none");
+        $("#btnModificar").attr('onclick', 'modifyById(' + ci + ')');
+
+    };
+}
+
+function delById(id) {
     var active = dataBase.result;
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-    var request = object.delete(ci);//borrar dato
+    var request = object.delete(id);//borrar dato
 
     request.onsuccess = function () {
         console.log("success");
         loadAll();
     };
+
+}
+function modifyById(id) {
+    var active = dataBase.result;
+    var data = active.transaction(["alumnos"], "readwrite");
+    var object = data.objectStore("alumnos");
+
+    var index = object.index("by_id");
+    //buscar el id actual para modificar mediante put()!!!
 }
