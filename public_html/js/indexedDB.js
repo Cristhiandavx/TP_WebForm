@@ -44,7 +44,7 @@ function addToIndexedDB() {
     var data = activeDB.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
 
-    var request = object.put({
+    var request = object.add({
         ci: document.querySelector("#FormControlNumerodecedula").value,
         nombre: document.querySelector("#FormControlNombre").value,
         apellido: document.querySelector("#FormControlApellido").value
@@ -55,7 +55,7 @@ function addToIndexedDB() {
     };
 
     data.oncomplete = function (e) {
-        console.log('Objeto agregado correctamente');
+        alert('Objeto agregado correctamente');
         loadAll();
     };
 }
@@ -142,6 +142,7 @@ function loadAll() {
         document.querySelector("#db_objectsName").innerHTML = "Nombre de la tabla: " + active.name;
         //document.querySelector("#btn_loadAll").hide();
         document.querySelector("#btn_orderByName").classList.remove("d-none");
+        
     };
 }
 
@@ -203,10 +204,11 @@ function loadInForm(ci) {
             document.querySelector("#FormControlNumerodecedula").value = result.ci;
             document.querySelector("#FormControlNombre").value = result.nombre;
             document.querySelector("#FormControlApellido").value = result.apellido;
+            document.querySelector("#FormControlNombre").focus();
         }
         document.querySelector("#btnGuardar").classList.add("d-none");
         document.querySelector("#btnModificar").classList.remove("d-none");
-        $("#btnModificar").attr('onclick', 'modifyById(' + ci + ')');
+        $("#btnModificar").attr('onclick', 'modify(' + ci + ')');
 
     };
 }
@@ -223,11 +225,27 @@ function delById(id) {
     };
 
 }
-function modifyById(id) {
+function modify(id) {
     var active = dataBase.result;
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-
-    var index = object.index("by_id");
-    //buscar el id actual para modificar mediante put()!!!
+    var index = object.index('by_id');
+    
+    index.openCursor(id).onsuccess = function (event) {
+        var cursor = event.target.result;
+        if (cursor) {
+            var updateData = cursor.value;
+            updateData.nombre = document.querySelector("#FormControlNombre").value;
+            updateData.apellido = document.querySelector("#FormControlApellido").value;
+            var request = cursor.update(updateData);
+            request.onsuccess = function () {
+                console.log('Modificado');
+                loadAll();
+            };
+            request.onerror = function () {
+                console.log('Error' + '/n/n' + request.error.name + '\n\n' + request.error.message);
+                loadAll();
+            };
+        }
+    };
 }

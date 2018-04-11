@@ -35,7 +35,7 @@ utilizo la configuración de proyectos anteriores
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
         <!-- Otros estilos -->
         <!-- =========================================================================================== -->
-        
+
         <!-- =========================================================================================== -->
         <!-- Otros scripts -->
         <!-- =========================================================================================== -->
@@ -56,7 +56,7 @@ utilizo la configuración de proyectos anteriores
             <!--<p class="lead">Formulario en forma de grilla</p>-->
             <!--================================================Formulario con formato Form Grid==========================================-->
             <h2>Información General</h2>
-            <form id="generalInfo" class="needs-validation">
+            <form id="generalInfo" class="needs-validation" novalidate>
                 <h4>Datos de contacto</h4>
                 <div class="form-row"><!-- Form Row para hacer que se ve en forma de listas en linea -->
                     <div class="col-6 col-sm"><!-- col para mantener el elemento en el centro y responsivo -->
@@ -249,10 +249,10 @@ utilizo la configuración de proyectos anteriores
                         </div>
                     </div>
                 </div>
-                <button id="btnGuardar" class="btn btn-info">Guardar</button>
+                <!--  --><button id="btnGuardar" type="submit" class="btn">Guardar</button>
+                <!--  --><button id="btnModificar" type="submit" class="btn d-none">Modificar</button>
             </form>
-            <!-- <button id="btnGuardar" type="button" onclick="addToIndexedDB()" class="btn">Guardar</button> -->
-            <!--  --><button id="btnModificar" type="button" class="btn d-none">Modificar</button>
+
             <hr>
             <div id="elements">
                 <table>
