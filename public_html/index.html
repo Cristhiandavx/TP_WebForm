@@ -56,7 +56,7 @@ utilizo la configuración de proyectos anteriores
             <!--<p class="lead">Formulario en forma de grilla</p>-->
             <!--================================================Formulario con formato Form Grid==========================================-->
             <h2>Información General</h2>
-            <form id="generalInfo" class="needs-validation" novalidate>
+            <form id="generalInfo" class="needs-validation">
                 <h4>Datos de contacto</h4>
                 <div class="form-row"><!-- Form Row para hacer que se ve en forma de listas en linea -->
                     <div class="col-6 col-sm"><!-- col para mantener el elemento en el centro y responsivo -->
@@ -249,8 +249,8 @@ utilizo la configuración de proyectos anteriores
                         </div>
                     </div>
                 </div>
-                <!--  --><button id="btnGuardar" type="submit" class="btn">Guardar</button>
-                <!--  --><button id="btnModificar" type="submit" class="btn d-none">Modificar</button>
+                <!--  --><button id="btnGuardar" type="submit" class="btn">Guardar/Modificar</button>
+                <!--  --><button id="btnModificar" type="submit" class="btn d-none">Guardar/Modificar</button>
             </form>
 
             <hr>
@@ -271,8 +271,8 @@ utilizo la configuración de proyectos anteriores
                     </tbody>
                 </table>
             </div>
-            <button id="btn_loadAll" type="button" onclick="loadAll();" class="">Cargar datos</button>
-            <button id="btn_orderByName" type="button" onclick="loadAllByName();" class="d-none">Ordenar por nombre</button>
+            <button id="btn_loadAll" type="button" onclick="loadAllRecords();" class="">Cargar datos</button>
+            <button id="btn_orderByName" type="button" onclick="orderByName();" class="d-none">Ordenar por nombre</button>
             <hr class="my-5">
             <div class="container card-footer text-center my-2">
                 TP - Formulario

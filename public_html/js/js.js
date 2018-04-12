@@ -16,15 +16,26 @@
                 if (form.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
+                    console.log("hay campos invalidos");
                 } else {
-                    S
-                    addToIndexedDB();
-                    alert("added");
+                    event.preventDefault();
+                    event.stopPropagation();
+                    verifyAction();
+                    //addRecord();
+                    //modifyRecord();
+                    //alert("added");
                 }
-                form.classList.add('was-validated');
+                //form.classList.add('was-validated');
+
             }, false);
         });
     }, false);
 })();
 
 // =============================================================================
+$(document).ready(function () {
+    $("#FormControlNumerodecedula").focusout(function () {
+        loadRecordDataByCi();
+        console.log("searching");
+    });
+});
