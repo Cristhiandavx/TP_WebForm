@@ -1,30 +1,38 @@
 /* 
- * In the following example, the API is used to access a "registro" database that
- * holds alumnos stored by their "cedula" attribute.
- * An index is maintained on the "apellido" attribute of the objects, and can be used to look up alumnos by apellido.
- * A connection to the database is opened. If the "registro" database did not already
- * exist, it is created and an event handler creates the object store and indexes. 
- * Finally, the opened connection is saved for use.
- 
  Author     : Cristhian
  */
-
-//Cargar la variable global y crossbrowser (para todos los navegadores)
-var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-var dataBase = null;
-//inicializar la base de datos
+/*Obs.: Los comentarios para una línea los pongo por encima de ella. Es decir, cada comentario está por encima de la línea de codigo a ser comentada */
+//=====================INDEXED DATA BASE (Copied from examples in documentation site of IndexedDB)=================================//
+/*
+ * In the following example, the API is used to access a database (indexedDB) that
+ * holds objects (IDBOject) stored by their named attribute.
+ * An index is maintained on the attribute of the objects, and can be used to look up objects by the attribute index name.
+ * A connection to the database is opened. If the database did not already
+ * exist, it is created and an event handler creates the object store and indexes. 
+ * Finally, the opened connection is saved for use.
+ * 
+ */
+//codigo para la utilización de variables de IndexedDB
+// In the following line, you should include the prefixes of implementations you want to test.
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// DON'T use "var indexedDB = ..." if you're not in a function.
+// Moreover, you may need references to some window.IDB* objects:
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"}; // This line should only be needed if it is needed to support the object's constants for older browsers
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+// (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
+var dataBase = null;//inicializa una variable global
+//abrir la base de datos, si no existe, crea una.
 function startDB() {
-    //“conector” abierto a nuestra base de datos.
-    //dataBase = indexedDB.open("Nombre de la base de datos", "Versión de la base de datos"); la versión es opcional
+    //sintax used: dataBase = indexedDB.open("Nombre de la base de datos", "Versión de la base de datos"); la versión es opcional
     dataBase = indexedDB.open('registro', 1);//abre la base de datos con ese nombre, si no existe, crea una con versión = 1
-
     dataBase.onupgradeneeded = function (e) {
         var activeDB = dataBase.result;
-        var registro = activeDB.createObjectStore("alumnos", {keyPath: 'id_alumno', autoIncrement: true}); //crea la colección (tabla) alumnos con una propiedad (columna) id que será la clave primaria y autoincrementado
+        //crea la colección (tabla) alumnos con un atributo (columna) id que será la clave primaria y autoincrementado de los objetos (filas) guardados en cada registro
+        var registro = activeDB.createObjectStore("alumnos", {keyPath: 'id_alumno', autoIncrement: true});
         //indices createIndex('nombre del indice', 'nombre del registro', {constraints: true/false});
-        registro.createIndex('id_alumno', 'id_alumno', {unique: true}); //crea un indice de la propiedad id
-        registro.createIndex('ci_alumno', 'ci_alumno', {unique: true}); // crea un indice (by_cedula) de la propiedad cédula (cedula) que es único ({unique: true})
-        registro.createIndex('nombre_alumno', 'nombre_alumno', {unique: false}); //crea un indice de la propiedad nombre
+        registro.createIndex('id_alumno', 'id_alumno', {unique: true}); //crea un indice para el atributo id
+        registro.createIndex('ci_alumno', 'ci_alumno', {unique: true}); //aplica una restringción para que sea único ({unique: true})
+        registro.createIndex('nombre_alumno', 'nombre_alumno');
     };
     //control del resultado
     dataBase.onsuccess = function (e) {//cuando la conexión se haya realizado correctamente, sin producirse ningún error. Se lanza después del método onupgradeneeded.
@@ -34,40 +42,41 @@ function startDB() {
     };
     dataBase.onerror = function (e) {//Se ejecutará cuando falle el open()… ya sea por un fallo en la apertura en sí como por algún error en el método onupgradeneeded.
         console.log("Database not loaded");
-        console.log(dataBase.error.name + '\n\n' + dataBase.error.message);
+        console.log(dataBase.error.name + '\n' + dataBase.error.message);
     };
 }
+//guardar registro mediante add({value/values})
 function addRecord() {
     var activeDB = dataBase.result;
     var data = activeDB.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-
     var request = object.add({
         ci_alumno: document.querySelector("#FormControlNumerodecedula").value,
         nombre_alumno: document.querySelector("#FormControlNombre").value,
         apellido_alumno: document.querySelector("#FormControlApellido").value
     });
     request.onerror = function (e) {
-        console.log(request.error.name + '\n\n' + request.error.message);
+        console.log(request.error.name + '\n' + request.error.message);
     };
-
     data.oncomplete = function (e) {
+        console.log("added");
         document.querySelector("form").reset();
-        loadAllRecords();
     };
 }
-function modifyRecord(id) {
+//modificar registro mediante: index.openCursor(valor de indice) y target.result.update(valores nuevos)
+function modifyRecord(ci) {
     var active = dataBase.result;
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-    var index = object.index('id_alumno');
-
-    index.openCursor(id).onsuccess = function (event) {
+    var index = object.index('ci_alumno');
+    console.log("recibido " + ci);
+    index.openCursor(ci).onsuccess = function (event) {
         var cursor = event.target.result;
+        console.log(cursor.value);
         if (cursor) {
             var updateData = cursor.value;
-            updateData.nombre_alumno = document.querySelector("#FormControlNombre").value;
-            updateData.apellido_alumno = document.querySelector("#FormControlApellido").value;
+            updateData.nombre_alumno = $("#FormControlNombre").val();
+            updateData.apellido_alumno = $("#FormControlApellido").val();
             var request = cursor.update(updateData);
             request.onsuccess = function () {
                 console.log('Modificado');
@@ -75,7 +84,7 @@ function modifyRecord(id) {
                 document.querySelector("form").reset();
             };
             request.onerror = function () {
-                console.log('Error' + '/n/n' + request.error.name + '\n\n' + request.error.message);
+                console.log('Error' + '/n' + request.error.name + '\n' + request.error.message);
                 loadAllRecords();
             };
         }
@@ -86,12 +95,10 @@ function deleteRecord(id) {
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
     var request = object.delete(id);//borrar registro(key)
-
     request.onsuccess = function () {
         console.log("success");
         loadAllRecords();
     };
-
 }
 function loadAllRecords() {
     var active = dataBase.result;
@@ -106,17 +113,18 @@ function loadAllRecords() {
         elements.push(result.value);
         result.continue();
     };
-
     data.oncomplete = function () {
         var outerHTML = '';
         for (var key in elements) {
             outerHTML += '\n\
-                        <tr onclick="loadToForm(' + elements[key].id_alumno + ')">\n\
+                        <tr>\n\
                             <td>' + elements[key].ci_alumno + '</td>\n\
                             <td>' + elements[key].nombre_alumno + '</td>\n\
+                            <td>' + elements[key].apellido_alumno + '</td>\n\
                             <td>\n\
                                 <button type="button" onclick="loadRecordData(' + elements[key].id_alumno + ')">Detalles por registro</button>\n\
                                 <button type="button" onclick="deleteRecord(' + elements[key].id_alumno + ')">Eliminar registro</button>\n\
+                                <button type="button"  onclick="loadToForm(' + elements[key].id_alumno + ')">Editar registro</button>\n\
                             </td>\n\
                         </tr>';
         }
@@ -124,23 +132,19 @@ function loadAllRecords() {
         document.querySelector("#elementsList").innerHTML = outerHTML;
         console.log("Actual Object Store Name: " + active.name);
         document.querySelector("#db_objectsName").innerHTML = "Nombre de la tabla: " + active.name;
-        //document.querySelector("#btn_loadAll").hide();
         document.querySelector("#btn_orderByName").classList.remove("d-none");
-
     };
 }
 function loadRecordData(id) {
     var active = dataBase.result;
     var data = active.transaction(["alumnos"], "readonly");
     var object = data.objectStore("alumnos");
-
     var request = object.get(parseInt(id));
-
     request.onsuccess = function () {
         var result = request.result;
 
         if (result !== undefined) {
-            alert("ID: " + result.id + "\n\
+            alert("ID: " + result.id_alumno + "\n\
                                C.I. Nº: " + result.ci_alumno + "\n\
                                Nombre: " + result.nombre_alumno + "\n\
                                Apellido: " + result.apellido_alumno);
@@ -160,17 +164,24 @@ function loadRecordDataByCi() {
         elements.push(result.value);
         result.continue();
     };
+    var jo = 0;
     data.oncomplete = function () {
-        var jo = 0;
         for (var key in elements) {
             var ci = elements[key].ci_alumno;
-            if(ci === $("#FormControlNumerodecedula").val()){
-                alert("Se ha encontrado un registro con el mismo Nº de cédula. Cargando los datos");
-                if(jo === 0){
+            if (ci === $("#FormControlNumerodecedula").val()) {
+                console.log("existing ci_alumno found for id:" + elements[key].id_alumno + ", ci: " + elements[key].ci_alumno);
+                document.querySelector("#btnModificar").classList.remove("d-none");
+                document.querySelector("#btnGuardar").classList.add("d-none");
+                if (jo === 0) {
                     loadToForm(elements[key].id_alumno);
-                } else {
+                    console.log("Loading data into forms");
                     jo = 1;
+                } else {
+                    jo = 0;
                 }
+            } else {
+                document.querySelector("#btnModificar").classList.add("d-none");
+                document.querySelector("#btnGuardar").classList.remove("d-none");
             }
         }
         elements = [];
@@ -182,10 +193,8 @@ function loadToForm(id) {
     var object = data.objectStore("alumnos");
     var index = object.index("id_alumno");
     var request = index.get(id);
-
     request.onsuccess = function () {
         var result = request.result;
-
         if (result !== undefined) {
             document.querySelector("#FormControlNumerodecedula").value = result.ci_alumno;
             document.querySelector("#FormControlNombre").value = result.nombre_alumno;
@@ -194,7 +203,6 @@ function loadToForm(id) {
         }
         document.querySelector("#btnGuardar").classList.add("d-none");
         document.querySelector("#btnModificar").classList.remove("d-none");
-        $("#btnModificar").attr('onclick', 'modifyRecord(' + id + ')');
 
     };
 }
@@ -216,39 +224,21 @@ function orderByName() {
         var outerHTML = '';
         for (var key in elements) {
             outerHTML += '\n\
-                        <tr onclick="loadToForm(' + elements[key].ci_alumno + ')">\n\
+                        <tr>\n\
                             <td>' + elements[key].ci_alumno + '</td>\n\
                             <td>' + elements[key].nombre_alumno + '</td>\n\
+                            <td>' + elements[key].apellido_alumno + '</td>\n\
                             <td>\n\
                                 <button type="button" onclick="loadRecordData(' + elements[key].id_alumno + ')">Detalles por registro</button>\n\
                                 <button type="button" onclick="deleteRecord(' + elements[key].id_alumno + ')">Eliminar registro</button>\n\
+                                <button type="button"  onclick="loadToForm(' + elements[key].id_alumno + ')">Editar registro</button>\n\
                             </td>\n\
                         </tr>';
-
         }
         elements = [];
         document.querySelector("#elementsList").innerHTML = outerHTML;
     };
 }
 function verifyAction() {
-    var active = dataBase.result;
-    var data = active.transaction(["alumnos"], "readonly");
-    var object = data.objectStore("alumnos");
-    var elements = [];
-    object.openCursor().onsuccess = function (e) {
-        var result = e.target.result;
-        if (result === null) {
-            return;
-        }
-        elements.push(result.value);
-        result.continue();
-    };
-    data.oncomplete = function () {
-        //cargar la base de datos y comparar con el que se está cargando
-        for (var key in elements) {
-            //recorrer los registros mediante "key"
-        }
-        elements = [];
-        
-    };
+    
 }

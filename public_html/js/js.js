@@ -20,10 +20,12 @@
                 } else {
                     event.preventDefault();
                     event.stopPropagation();
-                    verifyAction();
-                    //addRecord();
-                    //modifyRecord();
-                    //alert("added");
+                    if ($("#btnGuardar").hasClass("d-none")) {
+                        modifyRecord($("#FormControlNumerodecedula").val());
+                    } else if ($("#btnModificar").hasClass("d-none")) {
+                        addRecord();
+                    }
+                    console.log("verifying");
                 }
                 //form.classList.add('was-validated');
 
@@ -38,4 +40,5 @@ $(document).ready(function () {
         loadRecordDataByCi();
         console.log("searching");
     });
+
 });
