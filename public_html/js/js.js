@@ -27,6 +27,7 @@
                     }
                     console.log("verifying");
                 }
+                /*Esto solo funcionará con los estilos personalizados de bootstrap*/
                 //form.classList.add('was-validated');
 
             }, false);
@@ -40,5 +41,4 @@ $(document).ready(function () {
         loadRecordDataByCi();
         console.log("searching");
     });
-
 });

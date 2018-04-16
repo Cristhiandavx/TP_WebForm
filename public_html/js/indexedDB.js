@@ -39,6 +39,8 @@ function startDB() {
         console.log("Database loaded successfuly");
         console.log("DB name: " + dataBase.result.name);
         console.log("DB version: " + dataBase.result.version);
+        console.log("Actual Object Store Name: " + dataBase.result.name);
+        document.querySelector("#db_objectsName").innerHTML = "Nombre de la tabla: " + dataBase.result.name;
     };
     dataBase.onerror = function (e) {//Se ejecutará cuando falle el open()… ya sea por un fallo en la apertura en sí como por algún error en el método onupgradeneeded.
         console.log("Database not loaded");
@@ -53,7 +55,9 @@ function addRecord() {
     var request = object.add({
         ci_alumno: document.querySelector("#FormControlNumerodecedula").value,
         nombre_alumno: document.querySelector("#FormControlNombre").value,
-        apellido_alumno: document.querySelector("#FormControlApellido").value
+        apellido_alumno: document.querySelector("#FormControlApellido").value,
+        fechadenac_alumno: document.querySelector("#FormDateFechadenac").value,
+        nacionalidad_alumno: document.querySelector("#FormControlNacionalidad").value
     });
     request.onerror = function (e) {
         console.log(request.error.name + '\n' + request.error.message);
@@ -61,6 +65,7 @@ function addRecord() {
     data.oncomplete = function (e) {
         console.log("added");
         document.querySelector("form").reset();
+        loadAllRecords();
     };
 }
 //modificar registro mediante: index.openCursor(valor de indice) y target.result.update(valores nuevos)
@@ -72,16 +77,17 @@ function modifyRecord(ci) {
     console.log("recibido " + ci);
     index.openCursor(ci).onsuccess = function (event) {
         var cursor = event.target.result;
-        console.log(cursor.value);
         if (cursor) {
             var updateData = cursor.value;
             updateData.nombre_alumno = $("#FormControlNombre").val();
             updateData.apellido_alumno = $("#FormControlApellido").val();
+            updateData.fechadenac_alumno = $("#FormDateFechadenac").val();
+            updateData.nacionalidad_alumno = $("#FormControlNacionalidad").val();
             var request = cursor.update(updateData);
             request.onsuccess = function () {
                 console.log('Modificado');
-                loadAllRecords();
                 document.querySelector("form").reset();
+                loadAllRecords();
             };
             request.onerror = function () {
                 console.log('Error' + '/n' + request.error.name + '\n' + request.error.message);
@@ -94,7 +100,7 @@ function deleteRecord(id) {
     var active = dataBase.result;
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-    var request = object.delete(id);//borrar registro(key)
+    var request = object.delete(id); //borrar registro(key)
     request.onsuccess = function () {
         console.log("success");
         loadAllRecords();
@@ -130,7 +136,7 @@ function loadAllRecords() {
         }
         elements = [];
         document.querySelector("#elementsList").innerHTML = outerHTML;
-        console.log("Actual Object Store Name: " + active.name);
+        console.log("Data loaded from Object Store: " + active.name);
         document.querySelector("#db_objectsName").innerHTML = "Nombre de la tabla: " + active.name;
         document.querySelector("#btn_orderByName").classList.remove("d-none");
     };
@@ -142,7 +148,6 @@ function loadRecordData(id) {
     var request = object.get(parseInt(id));
     request.onsuccess = function () {
         var result = request.result;
-
         if (result !== undefined) {
             alert("ID: " + result.id_alumno + "\n\
                                C.I. Nº: " + result.ci_alumno + "\n\
@@ -178,6 +183,10 @@ function loadRecordDataByCi() {
                     jo = 1;
                 } else {
                     jo = 0;
+                    if ($("#FormControlNumerodecedula").val() === "") {
+                        document.querySelector("#btnModificar").classList.add("d-none");
+                        document.querySelector("#btnGuardar").classList.remove("d-none");
+                    }
                 }
             } else {
                 document.querySelector("#btnModificar").classList.add("d-none");
@@ -198,12 +207,13 @@ function loadToForm(id) {
         if (result !== undefined) {
             document.querySelector("#FormControlNumerodecedula").value = result.ci_alumno;
             document.querySelector("#FormControlNombre").value = result.nombre_alumno;
-            document.querySelector("#FormControlApellido").value = result.apellido_alumno;
             document.querySelector("#FormControlNombre").focus();
+            document.querySelector("#FormControlApellido").value = result.apellido_alumno;
+            document.querySelector("#FormDateFechadenac").value = result.fechadenac_alumno;
+            document.querySelector("#FormControlNacionalidad").value = result.nacionalidad_alumno;
         }
         document.querySelector("#btnGuardar").classList.add("d-none");
         document.querySelector("#btnModificar").classList.remove("d-none");
-
     };
 }
 function orderByName() {
@@ -238,7 +248,4 @@ function orderByName() {
         elements = [];
         document.querySelector("#elementsList").innerHTML = outerHTML;
     };
-}
-function verifyAction() {
-    
 }

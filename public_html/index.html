@@ -69,7 +69,7 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <label for="FormControlNumerodecedula">Número de cedula</label>
-                        <input required type="text" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
+                        <input required type="number" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
                     </div>
                     <div class="col-auto">
                         <label for="FormDateFechadenac">Fecha de nacimiento</label><!-- El tipo fecha (date) necesita un estilo mas amigable para la utilización en diferentes navegadores -->
@@ -249,7 +249,7 @@ utilizo la configuración de proyectos anteriores
                         </div>
                     </div>
                 </div>
-                <!--  --><button id="btnGuardar" type="submit" class="btn">Guardar</button>
+                <!--  --><button id="btnGuardar" type="submit" class="btn d-none">Guardar</button>
                 <!--  --><button id="btnModificar" type="submit" class="btn d-none">Modificar</button>
             </form>
 
@@ -274,7 +274,8 @@ utilizo la configuración de proyectos anteriores
             </div>
             <button id="btn_loadAll" type="button" onclick="loadAllRecords();" class="">Cargar datos</button>
             <button id="btn_orderByName" type="button" onclick="orderByName();" class="d-none">Ordenar por nombre</button>
-            <hr class="my-5">
+            <hr class="my-3">
+            <div class="container col-6"><span id="msgs" class="badge badge-secondary m-0 p-2"></span></div>
             <div class="container card-footer text-center my-2">
                 TP - Formulario
             </div>
