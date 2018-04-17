@@ -11,7 +11,7 @@ label, label.col-form-label{
     font-size: 12px;
 }
 input[class*="form-"], select{
-    font-size: 10px;
+    font-size: 10px !important;
 }
 #elementsList tr:hover:not(.style), #elementsList tr:hover:not(button){
     background-color: darkslateblue;

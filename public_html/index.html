@@ -69,11 +69,54 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <label for="FormControlNumerodecedula">Número de cedula</label>
-                        <input required type="number" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
+                        <input min="100000" max="90999999" required type="number" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula" title="Seis caracteres minimo">
                     </div>
                     <div class="col-auto">
                         <label for="FormDateFechadenac">Fecha de nacimiento</label><!-- El tipo fecha (date) necesita un estilo mas amigable para la utilización en diferentes navegadores -->
-                        <input type="date" class="form-control form-control-sm" id="FormDateFechadenac">
+                        <input min="1950-01-01" required type="date" class="form-control form-control-sm" id="FormDateFechadenac">
+                    </div>
+                </div> 
+                <div class="form-row">
+                    <div class="col-auto col-sm-3">
+                        <label for="FormControlSelectPaisdenac">País de nacimiento</label>
+                        <select required="" name=Paisdenac class="form-control form-control-sm" id="FormControlSelectPaisdenac"> 
+                            <option value="">Seleccione Pa&iacute;s</option>
+                            <option value="1">España</option>
+                            <option value="2">Portugal</option>
+                            <option value="3">Colombia</option>
+                            <option value="4">Argentina</option>
+                            <option value="5">Brasil</option>
+                            <option value="6">Chile</option>
+                            <option value="7">Bolivia</option>
+                            <option value="8">Cuba</option>
+                            <option value="9">Republica Dominicana</option>
+                            <option value="10">Ecuador</option>
+                            <option value="11">Guatemala</option>
+                            <option value="12">Mexico</option>
+                            <option value="13">Uruguay</option>
+                            <option value="14">Panama</option>
+                            <option value="15">Nicaragua</option>
+                            <option value="16">Honduras</option>
+                            <option value="17">El Salvador</option>
+                            <option value="18">Paraguay</option>
+                            <option value="19">Peru</option>
+                            <option value="20">Puerto Rico</option>
+                            <option value="21">Estados Unidos</option>
+                            <option value="22">Venezuela</option>
+                            <option value="23">Costa Rica</option>
+                            <option value="24">Emiratos Arabes Unidos</option>
+                            <option value="25">Andorra</option>
+                            <option value="26">Canada
+                            <option value="27">Suiza
+                            <option value="28">Camerún
+                            <option value="29">China
+                            <option value="30">República Checa y Eslovaquia
+                            <option value="31">Chipre
+                            <option value="32">República Checa
+                            <option value="33">Alemania
+                            <option value="34">Dinamarca
+                            <option value="35">República Dominicana
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -100,7 +143,7 @@ utilizo la configuración de proyectos anteriores
                             <label class="form-check-label" for="RadioOption-inlEstadocivil-4">Viudo/a</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt5" id="RadioOption-inlEstadocivil-5">
+                            <input checked="" class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt5" id="RadioOption-inlEstadocivil-5">
                             <label class="form-check-label" for="RadioOption-inlEstadocivil-5">Prefiero no especificar</label>
                         </div>
                     </div>
@@ -112,11 +155,11 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col">
                         <label for="FormControlTelefono">Teléfono</label>
-                        <input type="tel" class="form-control form-control-sm" id="FormControlTelefono" placeholder="Teléfono">
+                        <input required type="tel" class="form-control form-control-sm" id="FormControlTelefono" placeholder="Teléfono">
                     </div>
                     <div class="col">
                         <label for="FormControlEmail">E-mail</label>
-                        <input type="email" class="form-control form-control-sm" id="FormControlEmail" placeholder="E-mail@ejemplo.com">
+                        <input required type="email" class="form-control form-control-sm" id="FormControlEmail" placeholder="E-mail@ejemplo.com">
                     </div>
                 </div>
                 <hr>
@@ -128,11 +171,11 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoPrim" value="Concluido" id="RadioOption-inlGradoPrim1">
+                            <input required="" class="form-check-input" type="radio" name="RadioOption-inlGradoPrim" value="Concluido" id="RadioOption-inlGradoPrim1">
                             <label class="form-check-label" for="RadioOption-inlGradoPrim1">Concluido</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoPrim" value="Inconcluso" id="RadioOption-inlGradoPrim2">
+                            <input required="" class="form-check-input" type="radio" name="RadioOption-inlGradoPrim" value="Inconcluso" id="RadioOption-inlGradoPrim2">
                             <label class="form-check-label" for="RadioOption-inlGradoPrim2">Inconcluso</label>
                         </div>
                     </div>
@@ -267,7 +310,7 @@ utilizo la configuración de proyectos anteriores
                     </thead>
                     <tbody id="elementsList">
                         <tr class="style">
-                            <td colspan="3">No elements to show</td>
+                            <td colspan="4">No elements to show</td>
                         </tr>
                     </tbody>
                 </table>

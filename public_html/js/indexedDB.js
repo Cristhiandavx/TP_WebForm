@@ -74,7 +74,6 @@ function modifyRecord(ci) {
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
     var index = object.index('ci_alumno');
-    console.log("recibido " + ci);
     index.openCursor(ci).onsuccess = function (event) {
         var cursor = event.target.result;
         if (cursor) {
