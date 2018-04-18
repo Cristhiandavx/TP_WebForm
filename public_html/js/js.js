@@ -22,10 +22,12 @@
                     event.stopPropagation();
                     if ($("#btnGuardar").hasClass("d-none")) {
                         modifyRecord($("#FormControlNumerodecedula").val());
+                        console.log("sent to modify");
                     } else if ($("#btnModificar").hasClass("d-none")) {
                         addRecord();
+                        console.log("sent to add");
                     }
-                    console.log("verifying");
+
                 }
                 /*Esto solo funcionará con los estilos personalizados de bootstrap*/
                 //form.classList.add('was-validated');
@@ -34,12 +36,25 @@
         });
     }, false);
 })();
-
-// =============================================================================
+//
+//============================Al momento de que el documento está cargado=======
 $(document).ready(function () {
     $("#FormControlNumerodecedula").focusout(function () {
         loadRecordDataByCi();
         console.log("searching");
     });
-    
 });
+//
+// =========================Funciones llamadas==================================
+function reset() {
+    alert("clik");
+    if ($("#btnGuardar").hasClass("d-none")) {
+        document.querySelector("#btnModificar").classList.add("d-none");
+        document.querySelector("#btnGuardar").classList.remove("d-none");
+    } else {
+        document.querySelector("#btnModificar").classList.remove("d-none");
+        document.querySelector("#btnGuardar").classList.add("d-none");
+    }
+    document.querySelector("#FormControlNombre").focus();
+}
+//

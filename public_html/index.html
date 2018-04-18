@@ -50,7 +50,7 @@ utilizo la configuración de proyectos anteriores
     <body onload="startDB()">
         <div id="form1" class="container">
             <div class="jumbotron text-center text-light" style="background-color: darkslategrey">
-                <h1>Formulario</h1>
+                <h1>Formulario de <strong>Registro</strong></h1>
             </div>
             <hr class="my-4">
             <!--<p class="lead">Formulario en forma de grilla</p>-->
@@ -61,7 +61,7 @@ utilizo la configuración de proyectos anteriores
                 <div class="form-row"><!-- Form Row para hacer que se ve en forma de listas en linea -->
                     <div class="col-6 col-sm"><!-- col para mantener el elemento en el centro y responsivo -->
                         <label for="FormControlNombre">Nombre</label><!-- Para los id (y los labels a quienes apunta) uso el tipo de elemento (FormControl, FormCheck, etc.) seguido del nombre para el mismo -->
-                        <input required type="text" class="form-control form-control-sm" id="FormControlNombre" placeholder="Nombre">
+                        <input required autofocus="" type="text" class="form-control form-control-sm" id="FormControlNombre" placeholder="Nombre">
                     </div>
                     <div class="col-6 col-sm">
                         <label for="FormControlApellido">Apellido</label>
@@ -69,11 +69,11 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <label for="FormControlNumerodecedula">Número de cedula</label>
-                        <input min="100000" max="90999999" required type="number" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula" title="Seis caracteres minimo">
+                        <input min="100000" max="90999999" required type="number" class="form-control form-control-sm" id="FormControlNumerodecedula" placeholder="Número de cedula">
                     </div>
                     <div class="col-auto">
                         <label for="FormDateFechadenac">Fecha de nacimiento</label><!-- El tipo fecha (date) necesita un estilo mas amigable para la utilización en diferentes navegadores -->
-                        <input min="1950-01-01" required type="date" class="form-control form-control-sm" id="FormDateFechadenac">
+                        <input min="1990-01-01" required type="date" class="form-control form-control-sm" id="FormDateFechadenac">
                     </div>
                 </div> 
                 <div class="form-row">
@@ -106,52 +106,73 @@ utilizo la configuración de proyectos anteriores
                             <option value="23">Costa Rica</option>
                             <option value="24">Emiratos Arabes Unidos</option>
                             <option value="25">Andorra</option>
-                            <option value="26">Canada
-                            <option value="27">Suiza
-                            <option value="28">Camerún
-                            <option value="29">China
-                            <option value="30">República Checa y Eslovaquia
-                            <option value="31">Chipre
-                            <option value="32">República Checa
-                            <option value="33">Alemania
-                            <option value="34">Dinamarca
-                            <option value="35">República Dominicana
+                            <option value="26">Canada</option>
+                            <option value="27">Suiza</option>
+                            <option value="28">Camerún</option>
+                            <option value="29">China</option>
+                            <option value="30">República Checa y Eslovaquia</option>
+                            <option value="31">Chipre</option>
+                            <option value="32">República Checa</option>
+                            <option value="33">Alemania</option>
+                            <option value="34">Dinamarca</option>
+                            <option value="35">República Dominicana</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-auto">
-                        <label for="FormControlNacionalidad">Nacionalidad</label>
+                        <label for="FormControlNacionalidad">Nacionalidad</label><!-- puede ser auto completado mediante la revision del pais de nacimiento -->
                         <input type="text" class="form-control form-control-sm" id="FormControlNacionalidad" placeholder="Nacionalidad">
                     </div>
                     <div class="col-12 col-sm-auto">
                         <label>Estado civil</label><br>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt1" id="RadioOption-inlEstadocivil-1">
-                            <label class="form-check-label" for="RadioOption-inlEstadocivil-1">Soltero/a</label>
+                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt1" id="estadocivilopt1">
+                            <label class="form-check-label" for="estadocivilopt1">Soltero/a</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt2" id="RadioOption-inlEstadocivil-2">
-                            <label class="form-check-label" for="RadioOption-inlEstadocivil-2">Casado/a</label>
+                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt2" id="estadocivilopt2">
+                            <label class="form-check-label" for="estadocivilopt2">Casado/a</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt3" id="RadioOption-inlEstadocivil-3">
-                            <label class="form-check-label" for="RadioOption-inlEstadocivil-3">Divorciado/a</label>
+                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt3" id="estadocivilopt3">
+                            <label class="form-check-label" for="estadocivilopt3">Divorciado/a</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt4" id="RadioOption-inlEstadocivil-4">
-                            <label class="form-check-label" for="RadioOption-inlEstadocivil-4">Viudo/a</label>
+                            <input class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt4" id="estadocivilopt4">
+                            <label class="form-check-label" for="estadocivilopt4">Viudo/a</label>
                         </div>
                         <div class="form-check-inline">
-                            <input checked="" class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt5" id="RadioOption-inlEstadocivil-5">
-                            <label class="form-check-label" for="RadioOption-inlEstadocivil-5">Prefiero no especificar</label>
+                            <input checked="" class="form-check-input" type="radio" name="RadioOption-inlEstadocivil" value="estadocivilopt5" id="estadocivilopt5">
+                            <label class="form-check-label" for="estadocivilopt5">Prefiero no especificar</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-auto col-sm-3">
+                        <label>Vive con:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="FormCheckVivecon" value="FormCheckVivecon1" id="FormCheckVivecon1">
+                            <label class="form-check-label" for="FormCheckVivecon1">Padre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="FormCheckVivecon" value="FormCheckVivecon2" id="FormCheckVivecon2">
+                            <label class="form-check-label" for="FormCheckVivecon2">Madre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="FormCheckVivecon" value="VC3" id="FormCheckVivecon3">
+                            <label class="form-check-label" for="FormCheckVivecon3">Otro familiar</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="FormCheckVivecon" value="VC4" id="FormCheckVivecon4">
+                            <label class="form-check-label" for="FormCheckVivecon4">Otro no familiar</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12 col-sm-6">
                         <label for="FormControlDireccion">Dirección</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlDireccion" placeholder="Dirección">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlDireccion" placeholder="Dirección">
                     </div>
                     <div class="col">
                         <label for="FormControlTelefono">Teléfono</label>
@@ -183,24 +204,24 @@ utilizo la configuración de proyectos anteriores
                 <div class="form-row">
                     <div class="col-12 col-lg">
                         <label for="FormControlPrimaria">Nombre de la institución</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlPrimaria" placeholder="Nombre de la institución">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlPrimaria" placeholder="Nombre de la institución">
                     </div>
                     <div class="col-12 col-lg">
                         <label>Periodo de formación</label>
                         <div class="form-row">
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoD1">Desde:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoDesdePrim">Desde:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoD1">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoDesdePrim">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoH1">Hasta:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoHastaPrim">Hasta:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoH1">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoHastaPrim">
                                     </div>
                                 </div>
                             </div>
@@ -214,11 +235,11 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoSec" value="Concluido" id="RadioOption-inlGradoSec1">
+                            <input required class="form-check-input" type="radio" name="RadioOption-inlGradoSec" value="Concluido" id="RadioOption-inlGradoSec1">
                             <label class="form-check-label" for="RadioOption-inlGradoSec1">Concluido</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoSec" value="Inconcluso" id="RadioOption-inlGradoSec2">
+                            <input required class="form-check-input" type="radio" name="RadioOption-inlGradoSec" value="Inconcluso" id="RadioOption-inlGradoSec2">
                             <label class="form-check-label" for="RadioOption-inlGradoSec2">Inconcluso</label>
                         </div>
                     </div>
@@ -226,24 +247,24 @@ utilizo la configuración de proyectos anteriores
                 <div class="form-row">
                     <div class="col-12 col-lg">
                         <label for="FormControlSecundaria">Nombre de la institución</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlSecundaria" placeholder="Nombre de la institución">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlSecundaria" placeholder="Nombre de la institución">
                     </div>
                     <div class="col-12 col-lg">
                         <label>Periodo de formación</label>
                         <div class="form-row">
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoD2">Desde:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoDesdeSec">Desde:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoD2">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoDesdeSec">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoH2">Hasta:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoHastaSec">Hasta:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoH2">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoHastaSec">
                                     </div>
                                 </div>
                             </div>
@@ -256,11 +277,11 @@ utilizo la configuración de proyectos anteriores
                     </div>
                     <div class="col-auto">
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoUniv" value="Concluido" id="RadioOption-inlGradoUniv1">
+                            <input required class="form-check-input" type="radio" name="RadioOption-inlGradoUniv" value="Concluido" id="RadioOption-inlGradoUniv1">
                             <label class="form-check-label" for="RadioOption-inlGradoUniv1">Concluido</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="RadioOption-inlGradoUniv" value="Inconcluso" id="RadioOption-inlGradoUniv2">
+                            <input required class="form-check-input" type="radio" name="RadioOption-inlGradoUniv" value="Inconcluso" id="RadioOption-inlGradoUniv2">
                             <label class="form-check-label" for="RadioOption-inlGradoUniv2">Inconcluso</label>
                         </div>
                     </div>
@@ -268,32 +289,37 @@ utilizo la configuración de proyectos anteriores
                 <div class="form-row">
                     <div class="col-12 col-lg">
                         <label for="FormControlUniversitaria">Nombre de la institución</label>
-                        <input type="text" class="form-control form-control-sm" id="FormControlUniversitaria" placeholder="Nombre de la institución">
+                        <input required type="text" class="form-control form-control-sm" id="FormControlUniversitaria" placeholder="Nombre de la institución">
                     </div>
                     <div class="col-12 col-lg">
                         <label>Periodo de formación</label>
                         <div class="form-row">
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoD3">Desde:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoDesdeUniv">Desde:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoD3">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoDesdeUniv">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div class="form-row">
-                                    <label class="col-form-label" for="FormControlPeriodoH3">Hasta:</label>
+                                    <label class="col-form-label" for="FormControlPeriodoHastaUniv">Hasta:</label>
                                     <div class="col-auto">
-                                        <input type="month" class="form-control form-control-sm" id="FormControlPeriodoH3">
+                                        <input required min="1995-01" type="month" class="form-control form-control-sm" id="FormControlPeriodoHastaUniv">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--  --><button id="btnGuardar" type="submit" class="btn d-none">Guardar</button>
+                <div class="form-check">
+                    <input required="" class="form-check-input" type="checkbox" value="verified" id="FormCheckVerify">
+                    <label class="form-check-label" for="FormCheckVerify">He revisado y estoy seguro/a del contenido que he agregado en este formulario</label>
+                </div>
+                <!--  --><button id="btnGuardar" type="submit" class="btn">Guardar</button>
                 <!--  --><button id="btnModificar" type="submit" class="btn d-none">Modificar</button>
+                <!--  --><button id="btnCancelar" type="reset" class="btn" >Cancelar</button>
             </form>
 
             <hr>

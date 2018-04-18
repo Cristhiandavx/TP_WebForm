@@ -52,12 +52,38 @@ function addRecord() {
     var activeDB = dataBase.result;
     var data = activeDB.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
+    //para los valores de los checkbox
+    var ViveconCheck = document.querySelectorAll("[name='FormCheckVivecon']:checked");
+    var i;
+    var FormCheckViveconValues = [];
+    for (i = 0; i < ViveconCheck.length; i++) {
+        val = ViveconCheck[i].value;
+        FormCheckViveconValues[i] = val;
+    }
     var request = object.add({
         ci_alumno: document.querySelector("#FormControlNumerodecedula").value,
         nombre_alumno: document.querySelector("#FormControlNombre").value,
         apellido_alumno: document.querySelector("#FormControlApellido").value,
         fechadenac_alumno: document.querySelector("#FormDateFechadenac").value,
-        nacionalidad_alumno: document.querySelector("#FormControlNacionalidad").value
+        paisdenac_alumno: document.querySelector("#FormControlSelectPaisdenac").value, //está con números (1=españa, 2=portugal, ...etc)
+        nacionalidad_alumno: document.querySelector("#FormControlNacionalidad").value,
+        estadocivil_alumno: document.querySelector("[name=RadioOption-inlEstadocivil]:checked").value,
+        vivecon_alumno: FormCheckViveconValues,
+        direccion_alumno: document.querySelector("#FormControlDireccion").value,
+        telefono_alumno: document.querySelector("#FormControlTelefono").value,
+        email_alumno: document.querySelector("#FormControlEmail").value,
+        gradoprim_alumno: document.querySelector("[name=RadioOption-inlGradoPrim]").value,
+        institucionprim_alumno: document.querySelector("#FormControlPrimaria").value,
+        primdesde_alumno: document.querySelector("#FormControlPeriodoDesdePrim").value,
+        primhasta_alumno: document.querySelector("#FormControlPeriodoHastaPrim").value,
+        gradosec_alumno: document.querySelector("[name=RadioOption-inlGradoSec]").value,
+        institucionsec_alumno: document.querySelector("#FormControlSecundaria").value,
+        secdesde_alumno: document.querySelector("#FormControlPeriodoDesdeSec").value,
+        sechasta_alumno: document.querySelector("#FormControlPeriodoHastaSec").value,
+        gradouniv_alumno: document.querySelector("[name=RadioOption-inlGradoUniv]").value,
+        institucionuniv_alumno: document.querySelector("#FormControlUniversitaria").value,
+        univdesde_alumno: document.querySelector("#FormControlPeriodoDesdeUniv").value,
+        univhasta_alumno: document.querySelector("#FormControlPeriodoHastaUniv").value
     });
     request.onerror = function (e) {
         console.log(request.error.name + '\n' + request.error.message);
@@ -74,14 +100,41 @@ function modifyRecord(ci) {
     var data = active.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
     var index = object.index('ci_alumno');
+
+    var ViveconCheck = document.querySelectorAll("[name='FormCheckVivecon']:checked");
+    var i;
+    var FormCheckViveconValues = [];
+    for (i = 0; i < ViveconCheck.length; i++) {
+        val = ViveconCheck[i].value;
+        FormCheckViveconValues[i] = val;
+    }
     index.openCursor(ci).onsuccess = function (event) {
         var cursor = event.target.result;
         if (cursor) {
             var updateData = cursor.value;
-            updateData.nombre_alumno = $("#FormControlNombre").val();
-            updateData.apellido_alumno = $("#FormControlApellido").val();
-            updateData.fechadenac_alumno = $("#FormDateFechadenac").val();
-            updateData.nacionalidad_alumno = $("#FormControlNacionalidad").val();
+            updateData.ci_alumno = document.querySelector("#FormControlNumerodecedula").value;
+            updateData.nombre_alumno = document.querySelector("#FormControlNombre").value;
+            updateData.apellido_alumno = document.querySelector("#FormControlApellido").value;
+            updateData.fechadenac_alumno = document.querySelector("#FormDateFechadenac").value;
+            updateData.paisdenac_alumno = document.querySelector("#FormControlSelectPaisdenac").value; //está con números (1=españa, 2=portugal, ...etc)
+            updateData.nacionalidad_alumno = document.querySelector("#FormControlNacionalidad").value;
+            updateData.estadocivil_alumno = document.querySelector("[name=RadioOption-inlEstadocivil]:checked").value;
+            updateData.vivecon_alumno = FormCheckViveconValues;
+            updateData.direccion_alumno = document.querySelector("#FormControlDireccion").value;
+            updateData.telefono_alumno = document.querySelector("#FormControlTelefono").value;
+            updateData.email_alumno = document.querySelector("#FormControlEmail").value;
+            updateData.gradoprim_alumno = document.querySelector("[name=RadioOption-inlGradoPrim]").value;
+            updateData.institucionprim_alumno = document.querySelector("#FormControlPrimaria").value;
+            updateData.primdesde_alumno = document.querySelector("#FormControlPeriodoDesdePrim").value;
+            updateData.primhasta_alumno = document.querySelector("#FormControlPeriodoHastaPrim").value;
+            updateData.gradosec_alumno = document.querySelector("[name=RadioOption-inlGradoSec]").value;
+            updateData.institucionsec_alumno = document.querySelector("#FormControlSecundaria").value;
+            updateData.secdesde_alumno = document.querySelector("#FormControlPeriodoDesdeSec").value;
+            updateData.sechasta_alumno = document.querySelector("#FormControlPeriodoHastaSec").value;
+            updateData.gradouniv_alumno = document.querySelector("[name=RadioOption-inlGradoUniv]").value;
+            updateData.institucionuniv_alumno = document.querySelector("#FormControlUniversitaria").value;
+            updateData.univdesde_alumno = document.querySelector("#FormControlPeriodoDesdeUniv").value;
+            updateData.univhasta_alumno = document.querySelector("#FormControlPeriodoHastaUniv").value;
             var request = cursor.update(updateData);
             request.onsuccess = function () {
                 console.log('Modificado');
@@ -201,15 +254,40 @@ function loadToForm(id) {
     var object = data.objectStore("alumnos");
     var index = object.index("id_alumno");
     var request = index.get(id);
+
     request.onsuccess = function () {
         var result = request.result;
         if (result !== undefined) {
             document.querySelector("#FormControlNumerodecedula").value = result.ci_alumno;
             document.querySelector("#FormControlNombre").value = result.nombre_alumno;
-            document.querySelector("#FormControlNombre").focus();
             document.querySelector("#FormControlApellido").value = result.apellido_alumno;
             document.querySelector("#FormDateFechadenac").value = result.fechadenac_alumno;
+            document.querySelector("#FormControlSelectPaisdenac").value; //está con números (1=españa, 2=portugal, ...etc = result.paisdenac_alumno)
             document.querySelector("#FormControlNacionalidad").value = result.nacionalidad_alumno;
+            document.querySelector("[name=RadioOption-inlEstadocivil][value=" + result.estadocivil_alumno + "]").checked = true;
+            //recorrer el array que llega
+            var ViveconArray = result.vivecon_alumno;
+            var i;
+            var ViveconArrayValues = [];
+            for (i = 0; i < ViveconArray.length; i++) {
+                ViveconArrayValues = ViveconArray[i];
+                document.querySelector("[name='FormCheckVivecon'][value=" + ViveconArrayValues + "]").checked = true;
+            }
+            document.querySelector("#FormControlDireccion").value = result.direccion_alumno;
+            document.querySelector("#FormControlTelefono").value = result.telefono_alumno;
+            document.querySelector("#FormControlEmail").value = result.email_alumno;
+            document.querySelector("[name=RadioOption-inlGradoPrim][value=" + result.gradoprim_alumno + "]").checked = true;
+            document.querySelector("#FormControlPrimaria").value = result.institucionprim_alumno;
+            document.querySelector("#FormControlPeriodoDesdePrim").value = result.primdesde_alumno;
+            document.querySelector("#FormControlPeriodoHastaPrim").value = result.primhasta_alumno;
+            document.querySelector("[name=RadioOption-inlGradoSec][value=" + result.gradosec_alumno + "]").checked = true;
+            document.querySelector("#FormControlSecundaria").value = result.institucionsec_alumno;
+            document.querySelector("#FormControlPeriodoDesdeSec").value = result.secdesde_alumno;
+            document.querySelector("#FormControlPeriodoHastaSec").value = result.sechasta_alumno;
+            document.querySelector("[name=RadioOption-inlGradoUniv][value=" + result.gradouniv_alumno + "]").checked = true;
+            document.querySelector("#FormControlUniversitaria").value = result.institucionuniv_alumno;
+            document.querySelector("#FormControlPeriodoDesdeUniv").value = result.univdesde_alumno;
+            document.querySelector("#FormControlPeriodoHastaUniv").value = result.univhasta_alumno;
         }
         document.querySelector("#btnGuardar").classList.add("d-none");
         document.querySelector("#btnModificar").classList.remove("d-none");
