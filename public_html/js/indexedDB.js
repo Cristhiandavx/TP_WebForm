@@ -73,15 +73,15 @@ function addRecord() {
         direccion_alumno: document.querySelector("#FormControlDireccion").value,
         telefono_alumno: document.querySelector("#FormControlTelefono").value,
         email_alumno: document.querySelector("#FormControlEmail").value,
-        gradoprim_alumno: document.querySelector("[name=RadioOption-inlGradoPrim]").value,
+        gradoprim_alumno: document.querySelector("[name=RadioOption-inlGradoPrim]:checked").value,
         institucionprim_alumno: document.querySelector("#FormControlPrimaria").value,
         primdesde_alumno: document.querySelector("#FormControlPeriodoDesdePrim").value,
         primhasta_alumno: document.querySelector("#FormControlPeriodoHastaPrim").value,
-        gradosec_alumno: document.querySelector("[name=RadioOption-inlGradoSec]").value,
+        gradosec_alumno: document.querySelector("[name=RadioOption-inlGradoSec]:checked").value,
         institucionsec_alumno: document.querySelector("#FormControlSecundaria").value,
         secdesde_alumno: document.querySelector("#FormControlPeriodoDesdeSec").value,
         sechasta_alumno: document.querySelector("#FormControlPeriodoHastaSec").value,
-        gradouniv_alumno: document.querySelector("[name=RadioOption-inlGradoUniv]").value,
+        gradouniv_alumno: document.querySelector("[name=RadioOption-inlGradoUniv]:checked").value,
         institucionuniv_alumno: document.querySelector("#FormControlUniversitaria").value,
         univdesde_alumno: document.querySelector("#FormControlPeriodoDesdeUniv").value,
         univhasta_alumno: document.querySelector("#FormControlPeriodoHastaUniv").value
@@ -124,15 +124,15 @@ function modifyRecord(ci) {
             updateData.direccion_alumno = document.querySelector("#FormControlDireccion").value;
             updateData.telefono_alumno = document.querySelector("#FormControlTelefono").value;
             updateData.email_alumno = document.querySelector("#FormControlEmail").value;
-            updateData.gradoprim_alumno = document.querySelector("[name=RadioOption-inlGradoPrim]").value;
+            updateData.gradoprim_alumno = document.querySelector("[name=RadioOption-inlGradoPrim]:checked").value;
             updateData.institucionprim_alumno = document.querySelector("#FormControlPrimaria").value;
             updateData.primdesde_alumno = document.querySelector("#FormControlPeriodoDesdePrim").value;
             updateData.primhasta_alumno = document.querySelector("#FormControlPeriodoHastaPrim").value;
-            updateData.gradosec_alumno = document.querySelector("[name=RadioOption-inlGradoSec]").value;
+            updateData.gradosec_alumno = document.querySelector("[name=RadioOption-inlGradoSec]:checked").value;
             updateData.institucionsec_alumno = document.querySelector("#FormControlSecundaria").value;
             updateData.secdesde_alumno = document.querySelector("#FormControlPeriodoDesdeSec").value;
             updateData.sechasta_alumno = document.querySelector("#FormControlPeriodoHastaSec").value;
-            updateData.gradouniv_alumno = document.querySelector("[name=RadioOption-inlGradoUniv]").value;
+            updateData.gradouniv_alumno = document.querySelector("[name=RadioOption-inlGradoUniv]:checked").value;
             updateData.institucionuniv_alumno = document.querySelector("#FormControlUniversitaria").value;
             updateData.univdesde_alumno = document.querySelector("#FormControlPeriodoDesdeUniv").value;
             updateData.univhasta_alumno = document.querySelector("#FormControlPeriodoHastaUniv").value;

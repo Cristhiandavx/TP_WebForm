@@ -14,7 +14,7 @@ input[class*="form-"], select{
     font-size: 10px !important;
 }
 #elementsList tr:hover:not(.style), #elementsList tr:hover:not(button){
-    background-color: darkslateblue;
+    background-color: darkgrey;
     cursor: pointer;
     color: white;
 }
