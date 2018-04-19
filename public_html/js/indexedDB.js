@@ -52,7 +52,8 @@ function addRecord() {
     var activeDB = dataBase.result;
     var data = activeDB.transaction(["alumnos"], "readwrite");
     var object = data.objectStore("alumnos");
-    //para los valores de los checkbox
+    //los valores de los checkbox son un Array, por lo tanto se recorre cada valor y se guardan en otro Array para usarlo multiples veces
+    //(obs) puede estar de más esta porcion de codigo...revisar lineas: 56 a 63...
     var ViveconCheck = document.querySelectorAll("[name='FormCheckVivecon']:checked");
     var i;
     var FormCheckViveconValues = [];
@@ -65,7 +66,7 @@ function addRecord() {
         nombre_alumno: document.querySelector("#FormControlNombre").value,
         apellido_alumno: document.querySelector("#FormControlApellido").value,
         fechadenac_alumno: document.querySelector("#FormDateFechadenac").value,
-        paisdenac_alumno: document.querySelector("#FormControlSelectPaisdenac").value, //está con números (1=españa, 2=portugal, ...etc)
+        paisdenac_alumno: document.querySelector("#FormControlSelectPaisdenac").value,
         nacionalidad_alumno: document.querySelector("#FormControlNacionalidad").value,
         estadocivil_alumno: document.querySelector("[name=RadioOption-inlEstadocivil]:checked").value,
         vivecon_alumno: FormCheckViveconValues,
@@ -116,7 +117,7 @@ function modifyRecord(ci) {
             updateData.nombre_alumno = document.querySelector("#FormControlNombre").value;
             updateData.apellido_alumno = document.querySelector("#FormControlApellido").value;
             updateData.fechadenac_alumno = document.querySelector("#FormDateFechadenac").value;
-            updateData.paisdenac_alumno = document.querySelector("#FormControlSelectPaisdenac").value; //está con números (1=españa, 2=portugal, ...etc)
+            updateData.paisdenac_alumno = document.querySelector("#FormControlSelectPaisdenac").value;
             updateData.nacionalidad_alumno = document.querySelector("#FormControlNacionalidad").value;
             updateData.estadocivil_alumno = document.querySelector("[name=RadioOption-inlEstadocivil]:checked").value;
             updateData.vivecon_alumno = FormCheckViveconValues;
@@ -262,10 +263,10 @@ function loadToForm(id) {
             document.querySelector("#FormControlNombre").value = result.nombre_alumno;
             document.querySelector("#FormControlApellido").value = result.apellido_alumno;
             document.querySelector("#FormDateFechadenac").value = result.fechadenac_alumno;
-            document.querySelector("#FormControlSelectPaisdenac").value; //está con números (1=españa, 2=portugal, ...etc = result.paisdenac_alumno)
+            document.querySelector("#FormControlSelectPaisdenac").value = result.paisdenac_alumno;
             document.querySelector("#FormControlNacionalidad").value = result.nacionalidad_alumno;
             document.querySelector("[name=RadioOption-inlEstadocivil][value=" + result.estadocivil_alumno + "]").checked = true;
-            //recorrer el array que llega
+            //recorrer el array que llega desde IDB
             var ViveconArray = result.vivecon_alumno;
             var i;
             var ViveconArrayValues = [];

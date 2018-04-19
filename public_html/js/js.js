@@ -47,13 +47,9 @@ $(document).ready(function () {
 //
 // =========================Funciones llamadas==================================
 function reset() {
-    alert("clik");
     if ($("#btnGuardar").hasClass("d-none")) {
         document.querySelector("#btnModificar").classList.add("d-none");
         document.querySelector("#btnGuardar").classList.remove("d-none");
-    } else {
-        document.querySelector("#btnModificar").classList.remove("d-none");
-        document.querySelector("#btnGuardar").classList.add("d-none");
     }
     document.querySelector("#FormControlNombre").focus();
 }
